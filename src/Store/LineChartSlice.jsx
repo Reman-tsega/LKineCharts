@@ -5,7 +5,7 @@ export const fetchData = createAsyncThunk('lineChart/fetchData', async () => {
       'https://graphic-portal.com/api/-Ns4Y6W9ApHcBTBEzu9S/payload/public/-NsNham4iKudej0xLINo/-NsNhi7ANB5ZktQHydB2?updated=0'
     );
     const jsonData = await response.json();
-    return jsonData.data.values;
+    return jsonData.data.values;        
   });
 
 const initialState = {
