@@ -89,7 +89,7 @@ const LineChart = () => {
   };
 
   return (
-    <div className={`px-32 items-center w-full mb-12 ${darkMode ? 'bg-black' : 'bg-white'} text-${darkMode ? 'white' : 'black'} transition-all duration-500 ease-in-out`}>
+    <div className={`px-4 md:px-20 lg:px-32 items-center w-full mb-12 ${darkMode ? 'bg-black' : 'bg-white'} text-${darkMode ? 'white' : 'black'} transition-all duration-500 ease-in-out`}>
 
       <FilterHandler />
       <div>
@@ -111,72 +111,87 @@ const LineChart = () => {
         ))}
       </div>
       <Chart
-  options={{
-    chart: {
-      height: 300,
-      width: '100%', // Full width for responsiveness
-      type: 'line',
-      toolbar: {
-        show: true,
-      },
-    },
-    markers: {
-      size: 0,
-    },
-    colors: ['#3b82f6', '#f59e0b', '#10b981', '#f472b6', '#60a5fa', '#d97706'],
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: 'smooth',
-      width: 3,
-    },
-    xaxis: {
-      categories: categories,
-      style: {
-        color:`${darkMode? "white":"black"}`
-      },
-    },
-    yaxis: {
-      title: {
-        text: '% Value',
-      },
-      tickAmount: 5,
-      labels: {
-        formatter: function (value) {
-          return value + '%';
-        },
-        style: {
-          colors: darkMode ? '#fff' : '#333', // Text color based on dark mode
-        },
-      },
-    },
-    tooltip: {
-      enabled: true,
-      x: {
-        formatter: function (value) {
-          return value;
-        },
-      },
-      style: {
-        fontSize: '12px',
-        fontFamily: 'Helvetica, Arial, sans-serif',
-        background: darkMode ? '#333' : '#fff', // Background color based on dark mode
-        color: darkMode ? '#fff' : '#333', // Text color based on dark mode
-        border: darkMode ? '5px solid #fff' : '1px solid #333', // Border color based on dark mode
-        height: '48px',
-        width: '48px',
-        borderRadius: '50%',
-        textAlign: 'center',
-        padding: '8px',
-      },
-    },
-  }}
-  series={series}
-  type="line"
-  height={300}
-  width="100%" // Full width for responsiveness
-/>
+        options={{
+          chart: {
+            height: 300,
+            width: '100%', // Full width for responsiveness
+            type: 'line',
+            toolbar: {
+              show: true,
+            },
+            style: {
+                colors: darkMode ? '#fff' : '#000', // Y-axis label text color based on dark mode
+                background: darkMode? '#000':'#fff',
+              },
+          },
+          markers: {
+            size: 0,
+          },
+          colors: ['#3b82f6', '#f59e0b', '#10b981', '#f472b6', '#60a5fa', '#d97706'],
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: 'smooth',
+            width: 3,
+          },
+          xaxis: {
+            categories: categories,
+            style: {
+              color: darkMode ? 'white' : 'black', // X-axis label text color based on dark mode
+            },
+          },
+          yaxis: {
+            title: {
+              text: '% Value',
+              
+            },
+            tickAmount: 5,
+            labels: {
+              formatter: function (value) {
+                return value + '%';
+              },
+              style: {
+                colors: darkMode ? '#fff' : '#000', // Y-axis label text color based on dark mode
+                background: darkMode? '#fff':'#000',
+              },
+
+            },
+            style: {
+                colors: darkMode ? '#fff' : '#000', // Y-axis label text color based on dark mode
+                background: darkMode? '#000':'#fff',
+              },
+          },
+          tooltip: {
+            enabled: true,
+            x: {
+              formatter: function (value) {
+                return value;
+              },
+              style: {
+                colors: darkMode ? '#fff' : '#000', // Y-axis label text color based on dark mode
+                background: darkMode? '#000':'#fff',
+              },
+            },
+            style: {
+              fontSize: '12px',
+              fontFamily: 'Helvetica, Arial, sans-serif',
+              background: darkMode ? '#000' : '#fff', // Tooltip background color based on dark mode
+              color: darkMode ? '#fff' : '#000', // Tooltip text color based on dark mode
+              border: darkMode ? '1px solid #fff' : '1px solid #333', // Tooltip border color based on dark mode
+              height: '48px',
+              width: '48px',
+              borderRadius: '10px', // Tooltip border-radius
+              textAlign: 'center',
+              padding: '8px',
+            },
+          },
+        }}
+        series={series}
+        type="line"
+        height={300}
+        width="100%" // Full width for responsiveness
+      />
 
     </div>
   );

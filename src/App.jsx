@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Header from './Component/Header'
 import LineChart from './Component/LineChart'
-import DownloadSourceCode from './DownloadSourceCode';
 
 
 function App() {
@@ -10,7 +9,6 @@ function App() {
   return (
     <>
       <Header/>
-      <DownloadSourceCode/>
       <LineChart/>
        
     </>
