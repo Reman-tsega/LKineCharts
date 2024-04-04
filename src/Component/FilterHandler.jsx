@@ -9,7 +9,7 @@ function FilterHandler() {
   const { filterYear, filterSource } = useSelector((state) => state.lineChart);
 
   const handleFilterYearChange = (e) => {
-    dispatch(lineChartActions.setFilterYear(parseInt(e.target.value)));
+    dispatch(lineChartActions.setFilterYear(e.target.value));
   };
 
   const handleFilterSourceChange = (e) => {
@@ -40,6 +40,8 @@ function FilterHandler() {
           className={` ${darkMode ? 'text-white bg-black' : 'text-black bg-white'}`}
         >
           {/* Options for filter year */}
+          <option className={` ${darkMode ? 'text-white' : 'text-black'}`} value="last12Months">Last 12 Months</option>
+          <option className={` ${darkMode ? 'text-white' : 'text-black'}`} value="since2020">Since 2020</option>
           <option className={` ${darkMode ? 'text-white' : 'text-black'}`} value={2024}>2024</option>
           <option className={` ${darkMode ? 'text-white' : 'text-black'}`} value={2023}>2023</option>
           <option className={` ${darkMode ? 'text-white' : 'text-black'}`} value={2022}>2022</option>

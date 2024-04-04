@@ -19,6 +19,10 @@ const LineChart = () => {
   const { data: fetchedData, status: dataStatus } = useSelector((state) => state.lineChart);
 
   const generateCategories = (filteredData) => {
+    if(filterYear=="since2020"){
+      const years =[ 2020, 2021, 2022,2023, 2024]
+      return years;
+    }
     const categories = [];
     const monthSet = new Set();
 
@@ -32,18 +36,18 @@ const LineChart = () => {
     });
 
     const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
       'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
 
     return categories.map((month) => monthNames[parseInt(month) - 1]).reverse();
@@ -64,11 +68,32 @@ const LineChart = () => {
 
   useEffect(() => {
     if (dataStatus === 'succeeded') {
-      const filtered = data.filter(
-        (item) =>
-          new Date(item.date).getFullYear() === filterYear &&
-          item.source === filterSource
-      );
+      let filtered;
+      if (filterYear === "last12Months") {
+        const currentDate = new Date();
+        const twelveMonthsAgo = new Date(currentDate.getFullYear(), currentDate.getMonth() - 11, 1);
+        filtered = fetchedData.filter(
+          item =>
+            new Date(item.date) >= twelveMonthsAgo &&
+            item.source === filterSource
+        );
+      } else if (filterYear === "since2020") {
+        const since2020 = new Date(2020, 0, 1);
+        filtered = fetchedData.filter(
+          item =>
+            new Date(item.date) >= since2020 &&
+            item.source === filterSource
+        );
+        const years = Array.from({ length: new Date().getFullYear() - since2020.getFullYear() + 1 }, (_, i) => since2020.getFullYear() + i);
+        dispatch(lineChartActions.setCategories(years));
+      } else {
+        filtered = fetchedData.filter(
+          item =>
+            new Date(item.date).getFullYear() === parseInt(filterYear) &&
+            item.source === filterSource
+        );
+      }
+      console.log(filtered);
       dispatch(lineChartActions.setFilteredData(filtered));
 
       const newCategories = generateCategories(filtered);
@@ -88,6 +113,7 @@ const LineChart = () => {
     );
   };
 
+
   return (
     <div className={`px-4 md:px-20 lg:px-32 items-center w-full mb-12 ${darkMode ? 'bg-black' : 'bg-white'} text-${darkMode ? 'white' : 'black'} transition-all duration-500 ease-in-out`}>
 
@@ -97,6 +123,7 @@ const LineChart = () => {
           <button
             key={i}
             style={{
+              width:"70px",
               background: toggleValues[key] ? '#3b82f6' : '#ccc',
               border: 'none',
               borderRadius: '4px',
@@ -127,7 +154,8 @@ const LineChart = () => {
           markers: {
             size: 0,
           },
-          colors: ['#3b82f6', '#f59e0b', '#10b981', '#f472b6', '#60a5fa', '#d97706'],
+          
+          colors: ['#3b82f6', '#177743', '#4b4f4d', '#f59e0b', '#f00', '#b21375'],
           dataLabels: {
             enabled: false,
           },
@@ -137,8 +165,23 @@ const LineChart = () => {
           },
           xaxis: {
             categories: categories,
-            style: {
-              color: darkMode ? 'white' : 'black', // X-axis label text color based on dark mode
+            labels: {
+              formatter: function (value) {
+                return value; // Adjust label formatting if needed
+              },
+              style: {
+                colors: darkMode ? '#fff' : '#000', // X-axis label text color based on dark mode
+                fontSize: '12px', // Adjust font size of x-axis labels
+                fontFamily: 'Arial, sans-serif', // Adjust font family of x-axis labels
+                fontWeight: 400, // Adjust font weight of x-axis labels
+                // Add any other styling properties you need for x-axis labels
+              },
+            },
+            axisTicks: {
+              show: true, // Display axis ticks for better alignment
+            },
+            axisBorder: {
+              show: true, // Display axis border for better alignment
             },
           },
           yaxis: {

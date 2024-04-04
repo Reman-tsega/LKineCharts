@@ -5,6 +5,7 @@ export const fetchData = createAsyncThunk('lineChart/fetchData', async () => {
       'https://graphic-portal.com/api/-Ns4Y6W9ApHcBTBEzu9S/payload/public/-NsNham4iKudej0xLINo/-NsNhi7ANB5ZktQHydB2?updated=0'
     );
     const jsonData = await response.json();
+    console.log(jsonData);
     return jsonData.data.values;        
   });
 
@@ -38,12 +39,14 @@ export const lineChartSlice = createSlice({
       state.filteredData = action.payload;
     },
     setCategories: (state, action) => {
+      console.log(action.payload);
       state.categories = action.payload;
     },
     setSeries: (state, action) => {
       state.series = action.payload;
     },
     setFilterYear: (state, action) => {
+      console.log(action.payload);
       state.filterYear = action.payload;
     },
     setFilterSource: (state, action) => {
