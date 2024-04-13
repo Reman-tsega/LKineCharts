@@ -18,7 +18,7 @@ function FilterHandler() {
 
   return (
     <div className={` p-4 rounded-md shadow-md mb-4 text-${darkMode ? 'white' : 'black'}`}>
-      <div className="flex justify-end mb-4">
+      {/* <div className="flex justify-end mb-4">
         <label htmlFor="darkModeToggle" className="inline-flex items-center cursor-pointer mr-4">
           <span className="mr-2">Dark Mode</span>
           <input
@@ -29,7 +29,7 @@ function FilterHandler() {
             onChange={toggleTheme}
           />
         </label>
-      </div>
+      </div> */}
       <div className="flex items-center mb-4">
         <label htmlFor="filterYear" className={` ${darkMode ? 'text-white' : 'text-black'}`}>Filter Year:</label>
         <select
